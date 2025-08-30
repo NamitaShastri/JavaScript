@@ -1,1 +1,113 @@
+HTML file:- 
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Number Selection Game</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+
+<body>
+  <div id="box-container">
+    <h2>Guess the Number Game</h2>
+    <div id="box">
+      <input type="number" placeholder="Enter a Number" id="Number">
+    </div>
+    <br>
+    <button onclick="evaluateInput()">Submit</button>
+    <button onclick="location.reload()">New Game</button>
+    <p id="display">Result:</p>
+    <p id="score">Score: 0</p>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
+
+CSS file:-
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#box-container {
+  text-align: center;
+  background: #ffffffc7;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+#Number {
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  border: 2px solid #ff7e5f;
+  border-radius: 8px;
+  outline: none;
+  width: 200px;
+  text-align: center;
+}
+
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #ff7e5f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #feb47b;
+}
+
+
+#display, #score {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  color: #333;
+  background-color: #fff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+Javascript file:-
+
+var randomNumber = Math.floor(Math.random() * 10) + 1;
+var turnCounter = 0;
+
+var NumberInput = document.getElementById("Number");
+var display = document.getElementById("display");
+var scoreBox = document.getElementById("score");
+
+function evaluateInput() {
+  turnCounter++;
+  let guess = parseInt(NumberInput.value);
+
+  if (guess < randomNumber) {
+    display.innerText = "Result: Number is too small, try a bigger one.\nTurns: " + turnCounter;
+  } else if (guess > randomNumber) {
+    display.innerText = "Result: Number is too big, try a smaller one.\nTurns: " + turnCounter;
+  } else if (guess === randomNumber) {
+    display.innerText = "🎉 You guessed correctly! You win!\nTotal Turns: " + turnCounter;
+    
+    
+    let score = (turnCounter === 1) ? 10 : Math.max(1, 10 - turnCounter);
+    scoreBox.innerText = "Score: " + score;
+  }
+}
