@@ -1,0 +1,246 @@
+index.html :-
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div class="main-box">
+        <h1>My Unit Converter</h1>
+        
+        <p>Enter Value:</p>
+        <input type="number" id="my_value" placeholder="Enter a number">
+
+        <p>From:</p>
+        <select id="unit_from">
+            
+            <option value="km">Kilometers</option>
+            <option value="m">Meters</option>
+            <option value="miles">Miles</option>
+            <option value="feet">Feet</option>
+            
+            
+            <option value="kg">Kilograms</option>
+            <option value="lbs">Pounds (lbs)</option>
+            <option value="g">Grams</option>
+            
+            
+            <option value="c">Celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+            
+            
+            <option value="sec">Seconds</option>
+            <option value="min">Minutes</option>
+            <option value="hr">Hours</option>
+        </select>
+
+        <p>To:</p>
+        <select id="unit_to">
+            
+            <option value="km">Kilometers</option>
+            <option value="m">Meters</option>
+            <option value="miles">Miles</option>
+            <option value="feet">Feet</option>
+            
+            
+            <option value="kg">Kilograms</option>
+            <option value="lbs">Pounds (lbs)</option>
+            <option value="g">Grams</option>
+            
+            
+            <option value="c">Celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+            
+            
+            <option value="sec">Seconds</option>
+            <option value="min">Minutes</option>
+            <option value="hr">Hours</option>
+        </select>
+        
+        <br><br>
+        <button onclick="convert()">Convert Now!</button>
+        
+        <h3 id="result">Result shows here...</h3>
+    </div>
+
+</body>
+</html>
+
+
+style.css :-
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a5acd, #8a2be2);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.main-box {
+    width: 320px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.main-box h2 {
+    margin-bottom: 15px;
+    color: #6a5acd;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #6a5acd;
+    box-shadow: 0 0 5px rgba(106, 90, 205, 0.5);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #6a5acd;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #8a2be2;
+}
+
+#result {
+    margin-top: 15px;
+    color: #333333;
+    font-weight: bold;
+}
+
+
+script.js :-
+
+function convert() {
+    var val = parseFloat(document.getElementById("my_value").value);
+    var unit1 = document.getElementById("unit_from").value;
+    var unit2 = document.getElementById("unit_to").value;
+    var result_element = document.getElementById("result");
+
+    if (isNaN(val)) {
+        result_element.innerHTML = "Please enter a valid number!";
+        return;
+    }
+
+    var result;
+
+    if (unit1 == "km" && unit2 == "miles") {
+        result = val * 0.621371;
+        result_element.innerHTML = "Result: " + result + " miles";
+
+    } else if (unit1 == "miles" && unit2 == "km") {
+        result = val / 0.621371;
+        result_element.innerHTML = "Result: " + result + " km";
+
+    } else if (unit1 == "m" && unit2 == "feet") {
+        result = val * 3.28084;
+        result_element.innerHTML = "Result: " + result + " feet";
+
+    } else if (unit1 == "feet" && unit2 == "m") {
+        result = val / 3.28084;
+        result_element.innerHTML = "Result: " + result + " m";
+
+    } else if (unit1 == "kg" && unit2 == "lbs") {
+        result = val * 2.20462;
+        result_element.innerHTML = "Result: " + result + " lbs";
+
+    } else if (unit1 == "lbs" && unit2 == "kg") {
+        result = val / 2.20462;
+        result_element.innerHTML = "Result: " + result + " kg";
+
+    } else if (unit1 == "kg" && unit2 == "g") {
+        result = val * 1000;
+        result_element.innerHTML = "Result: " + result + " g";
+
+    } else if (unit1 == "g" && unit2 == "kg") {
+        result = val / 1000;
+        result_element.innerHTML = "Result: " + result + " kg";
+
+    } else if (unit1 == "c" && unit2 == "f") {
+        result = (val * 9/5) + 32;
+        result_element.innerHTML = "Result: " + result + " F";
+
+    } else if (unit1 == "f" && unit2 == "c") {
+        result = (val - 32) * 5/9;
+        result_element.innerHTML = "Result: " + result + " C";
+
+    } else if (unit1 == "c" && unit2 == "k") {
+        result = val + 273.15;
+        result_element.innerHTML = "Result: " + result + " K";
+
+    } else if (unit1 == "k" && unit2 == "c") {
+        result = val - 273.15;
+        result_element.innerHTML = "Result: " + result + " C";
+
+    } else if (unit1 == "f" && unit2 == "k") {
+        result = (val - 32) * 5/9 + 273.15;
+        result_element.innerHTML = "Result: " + result + " K";
+
+    } else if (unit1 == "k" && unit2 == "f") {
+        result = (val - 273.15) * 9/5 + 32;
+        result_element.innerHTML = "Result: " + result + " F";
+
+    } else if (unit1 == "sec" && unit2 == "min") {
+        result = val / 60;
+        result_element.innerHTML = "Result: " + result + " minutes";
+
+    } else if (unit1 == "min" && unit2 == "sec") {
+        result = val * 60;
+        result_element.innerHTML = "Result: " + result + " seconds";
+
+    } else if (unit1 == "min" && unit2 == "hr") {
+        result = val / 60;
+        result_element.innerHTML = "Result: " + result + " hours";
+
+    } else if (unit1 == "hr" && unit2 == "min") {
+        result = val * 60;
+        result_element.innerHTML = "Result: " + result + " minutes";
+
+    } else if (unit1 == "sec" && unit2 == "hr") {
+        result = val / 3600;
+        result_element.innerHTML = "Result: " + result + " hours";
+
+    } else if (unit1 == "hr" && unit2 == "sec") {
+        result = val * 3600;
+        result_element.innerHTML = "Result: " + result + " seconds";
+
+    } else if (unit1 == unit2) {
+        result_element.innerHTML = "Result: " + val + " " + unit2 + " (same unit)";
+
+    } else {
+        result_element.innerHTML = "Sorry, I can't convert that!";
+    }
+}
