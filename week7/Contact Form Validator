@@ -1,0 +1,145 @@
+index.html 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Contact Form</h2>
+
+        <form id="contactForm">
+            <label>Name:</label>
+            <input type="text" id="name">
+            <small class="error" id="nameError">Name cannot be empty!</small>
+
+            <label>Email:</label>
+            <input type="email" id="email">
+            <small class="error" id="emailError">Enter a valid email!</small>
+
+            <label>Message:</label>
+            <textarea id="message" rows="4"></textarea>
+            <small class="error" id="messageError">Message must be at least 10 characters!</small>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+style.css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    background: darkgrey;
+}
+
+.form-container {
+    background: white;
+    padding: 25px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    display: none;
+    margin-top: 3px;
+}
+
+input.error-border,
+textarea.error-border {
+    border-color: red;
+}
+
+input.success-border,
+textarea.success-border {
+    border-color: green;
+}
+
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+scipt.js
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    const name = document.getElementById("name");
+    const nameError = document.getElementById("nameError");
+
+    if (name.value.trim() === "") {
+        nameError.style.display = "block";
+        name.classList.add("error-border");
+        valid = false;
+    } else {
+        nameError.style.display = "none";
+        name.classList.remove("error-border");
+        name.classList.add("success-border");
+    }
+
+    const email = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (!email.value.match(emailPattern)) {
+        emailError.style.display = "block";
+        email.classList.add("error-border");
+        valid = false;
+    } else {
+        emailError.style.display = "none";
+        email.classList.remove("error-border");
+        email.classList.add("success-border");
+    }
+
+    const message = document.getElementById("message");
+    const messageError = document.getElementById("messageError");
+
+    if (message.value.trim().length < 10) {
+        messageError.style.display = "block";
+        message.classList.add("error-border");
+        valid = false;
+    } else {
+        messageError.style.display = "none";
+        message.classList.remove("error-border");
+        message.classList.add("success-border");
+    }
+
+    if (valid) {
+        alert("Form submitted successfully ");
+    }
+});
